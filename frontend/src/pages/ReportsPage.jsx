@@ -866,8 +866,8 @@ const ReportsPage = () => {
                       <div className="space-y-1">
                         {log.items.map((item, index) => (
                           <div key={index} className="flex flex-col">
-                            <span className="font-medium">{item.asset.name}</span>
-                            <span className="text-xs text-muted-foreground capitalize">{item.asset.category}</span>
+                            <span className="font-medium">{item.asset?.name || 'Unknown Asset'}</span>
+                            <span className="text-xs text-muted-foreground capitalize">{item.asset?.category || 'N/A'}</span>
                           </div>
                         ))}
                       </div>
@@ -885,9 +885,9 @@ const ReportsPage = () => {
                       <div className="flex items-center gap-2">
                         <Building2 className="h-4 w-4 text-muted-foreground" />
                         <div>
-                          <div className="font-medium">{log.base.name}</div>
+                          <div className="font-medium">{log.base?.name || 'Unknown Base'}</div>
                           <div className="text-xs text-muted-foreground">
-                            {log.base.district}, {log.base.state}
+                            {log.base?.district || 'N/A'}{log.base?.district && log.base?.state ? ', ' : ''}{log.base?.state || ''}
                           </div>
                         </div>
                       </div>
@@ -896,9 +896,9 @@ const ReportsPage = () => {
                       <div className="flex items-center gap-2">
                         <User className="h-4 w-4 text-muted-foreground" />
                         <div>
-                          <div className="font-medium">{log.performedBy.name}</div>
+                          <div className="font-medium">{log.performedBy?.name || 'System'}</div>
                           <div className="text-xs text-muted-foreground capitalize">
-                            {log.performedBy.role.replace("_", " ")}
+                            {log.performedBy?.role ? log.performedBy.role.replace("_", " ") : 'system'}
                           </div>
                         </div>
                       </div>

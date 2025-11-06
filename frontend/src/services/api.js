@@ -518,60 +518,73 @@ export const assignmentAPI = {
       throw new Error(errorMessage);
     }
 
-    return result;
-  },
+  return result;
+},
 };
 
-// movement Api
+// Movement API
 export const movementAPI = {
+// Get all movement logs
+getAll: async (params = {}) => {
+  const query = new URLSearchParams(params).toString();
+  const response = await fetch(`${API_BASE_URL}/api/movement?${query}`, {
+    credentials: "include",
+  });
+  
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    const errorMessage = error?.message || "Failed to fetch movement logs";
+    throw new Error(errorMessage);
+  }
+  
+  return response.json();
+},
 
-  // 📋 Get all assignments for the current user's base
-  getAll: async (params = {}) => {
-    const query = new URLSearchParams(params).toString();
-    const response = await fetch(`${API_BASE_URL}/api/movement?${query}`, {
-      credentials: "include",
-    });
+// Get movement by ID (if needed)
+getById: async (id) => {
+  const response = await fetch(`${API_BASE_URL}/api/movement/${id}`, {
+    credentials: "include",
+  });
+  
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    const errorMessage = error?.message || "Failed to fetch movement log";
+    throw new Error(errorMessage);
+  }
+  
+  return response.json();
+},
 
-    const result = await response.json();
-
-    if (!response.ok) {
-      const errorMessage = result?.error || result?.message || "Failed to fetch movement logs";
-      throw new Error(errorMessage);
-    }
-
-    return result;
-  },
-
-  // // 🔍 Get a single assignment by ID
-  // getById: async (id) => {
-  //   const response = await fetch(`${API_BASE_URL}/api/assign/get/${id}`, {
-  //     credentials: "include",
-  //   });
-
-  //   const result = await response.json();
-
-  //   if (!response.ok) {
-  //     const errorMessage = result?.error || result?.message || "Failed to fetch assignment";
-  //     throw new Error(errorMessage);
-  //   }
-
-  //   return result;
-  // },
+// Get inventory for the current user's base
+getMyStock: async (params = {}) => {
+  const query = new URLSearchParams(params).toString();
+  const response = await fetch(`${API_BASE_URL}/api/inventory/my-stock?${query}`, {
+    credentials: "include",
+  });
+  
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    const errorMessage = error?.message || "Failed to fetch inventory";
+    throw new Error(errorMessage);
+  }
+  
+  return response.json();
+},
 };
 
 // Data Summary API
 export const dataSummaryAPI = {
-  /**
-   * Get inventory for the current user's base (with optional asset filter)
-   * @param {Object} params - Optional query parameters
-   * @param {string} params.asset - Filter by asset ID
-   */
-  getMyStock: async (params = {}) => {
-    const query = new URLSearchParams(params).toString();
-    const response = await fetch(`${API_BASE_URL}/api/summary?${query}`, {
-      credentials: "include",
-    });
-    if (!response.ok) throw new Error("Failed to fetch dashboard");
-    return response.json();
-  },
+/**
+ * Get inventory for the current user's base (with optional asset filter)
+ * @param {Object} params - Optional query parameters
+ * @param {string} params.asset - Filter by asset ID
+ */
+getMyStock: async (params = {}) => {
+  const query = new URLSearchParams(params).toString();
+  const response = await fetch(`${API_BASE_URL}/api/summary?${query}`, {
+    credentials: "include",
+  });
+  if (!response.ok) throw new Error("Failed to fetch dashboard");
+  return response.json();
+},
 };
