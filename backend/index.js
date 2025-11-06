@@ -38,9 +38,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
   "http://localhost:5175",
-  "https://military-assets-management-eta.vercel.app",
-  "https://military-assets-management-frontend.vercel.app",
-  "https://military-assets-management-git-main-mohammedfaizans-projects.vercel.app"
+  "https://military-assest-management-system.netlify.app"  // Added Netlify URL
 ];
 
 // Add Vercel's deployment URL to allowed origins
