@@ -181,7 +181,7 @@ export const userAPI = {
 export const purchasesAPI = {
   // 📦 Create a new purchase bill
   create: async (data) => {
-    const response = await fetch(`${API_BASE_URL}/api/purchase/create`, {
+    const response = await fetch(`${API_BASE_URL}/api/purchases/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -204,7 +204,7 @@ export const purchasesAPI = {
 
   // ✏️ Update a purchase bill by ID
   update: async (id, data) => {
-    const response = await fetch(`${API_BASE_URL}/api/purchase/update/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/purchases/update/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -227,7 +227,7 @@ export const purchasesAPI = {
 
   // ❌ Delete a purchase bill by ID
   delete: async (id) => {
-    const response = await fetch(`${API_BASE_URL}/api/purchase/delete/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/purchases/delete/${id}`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -246,7 +246,7 @@ export const purchasesAPI = {
   // 📃 Get all purchase bills with pagination and filters
   getAll: async (params = {}) => {
     const query = new URLSearchParams(params).toString();
-    const response = await fetch(`${API_BASE_URL}/api/purchase/getMy?${query}`, {
+    const response = await fetch(`${API_BASE_URL}/api/purchases/getMy?${query}`, {
       credentials: "include",
     });
     if (!response.ok) throw new Error("Failed to fetch purchase bills");
@@ -255,7 +255,7 @@ export const purchasesAPI = {
 
   // 🔍 Get single purchase bill by ID
   getById: async (id) => {
-    const response = await fetch(`${API_BASE_URL}/api/purchase/get/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/purchases/get/${id}`, {
       credentials: "include",
     });
     if (!response.ok) throw new Error("Failed to fetch purchase bill");
