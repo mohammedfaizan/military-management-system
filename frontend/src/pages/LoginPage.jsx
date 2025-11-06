@@ -109,7 +109,7 @@ export const LoginPage = () => {
       toast.success(`${field} copied to clipboard`)
       setTimeout(() => setCopiedField(""), 2000)
     } catch (err) {
-      toast.error("Failed to copy to clipboard")
+      toast.error("Failed to copy to clipboard", err.message)
     }
   }
 
