@@ -1,5 +1,7 @@
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:1616"
+console.log("API Base URL:", API_BASE_URL);  // Add this line for debugging
 
+// Rest of your code...
 // Assets API
 export const assetsAPI = {
   getAll: async () => {
