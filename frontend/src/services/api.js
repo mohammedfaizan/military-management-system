@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:1616"
+// Use Vercel's environment variable if available, otherwise use the production backend URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://military-management-system-backend.vercel.app"
 
 // Assets API
 export const assetsAPI = {

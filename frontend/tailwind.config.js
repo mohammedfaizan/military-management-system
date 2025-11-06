@@ -1,5 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       keyframes: {
@@ -15,8 +19,8 @@ module.exports = {
       animation: {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         'slide-left': 'slide-left 30s linear infinite',
-
       },
     },
   },
+  plugins: [],
 }

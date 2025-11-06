@@ -39,7 +39,15 @@ const allowedOrigins = [
   "http://localhost:5174",
   "http://localhost:5175",
   "https://military-assets-management-eta.vercel.app",
+  "https://military-assets-management-frontend.vercel.app",
+  "https://military-assets-management-git-main-mohammedfaizans-projects.vercel.app"
 ];
+
+// Add Vercel's deployment URL to allowed origins
+const vercelUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null;
+if (vercelUrl && !allowedOrigins.includes(vercelUrl)) {
+  allowedOrigins.push(vercelUrl);
+}
 
 const now = dayjs().format('YYYY-MM-DD HH:mm:ss');
 const isRenderDeployed = process.env.RENDER_DEPLOYED
@@ -47,17 +55,23 @@ const isRenderDeployed = process.env.RENDER_DEPLOYED
 // CORS middleware (manual handling)
 app.use((req, res, next) => {
   const origin = req.headers.origin;
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Max-Age', '86400'); // 24 hours
+    return res.status(204).end();
+  }
+
+  // Set CORS headers for actual requests
   if (allowedOrigins.includes(origin)) {
-    res.header("Access-Control-Allow-Origin", origin);
-    res.header("Access-Control-Allow-Credentials", "true");
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   }
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-
+  
   next();
 });
 
@@ -85,16 +99,27 @@ app.get("/", (req, res) => {
 });
 
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    message: 'Server is running',
+    timestamp: new Date().toISOString(),
+    nodeVersion: process.version,
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/stocks", stocksRoutes);
-app.use("/api/summary", summaryRoutes);
-app.use("/api/purchase", purchaseRoutes);
+app.use("/api/settings", settingsRoutes);
+app.use("/api/purchases", purchaseRoutes);
+app.use("/api/inventory", stocksRoutes);
 app.use("/api/transfers", transferRoutes);
 app.use("/api/assign", assignRoutes);
 app.use("/api/expend", expendRoutes);
 app.use("/api/movement", movementRoutes);
-app.use("/api/settings", settingsRoutes);
+app.use("/api/summary", summaryRoutes);
 
 // Ping
 app.get('/ping', (req, res) => {

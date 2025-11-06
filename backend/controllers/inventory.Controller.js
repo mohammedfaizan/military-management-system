@@ -188,10 +188,7 @@ export const reverseTransferAsset = async (fromBaseId, toBaseId, assetId, qty) =
 };
 
 
-/**
- * GET /api/inventory/my
- * Get inventory for the current user's base with server-side filtering
- */
+
 export const getMyStockDetails = async (req, res) => {
     try {
         console.log('User making request:', req.user);
