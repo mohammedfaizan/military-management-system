@@ -1,5 +1,4 @@
-// Use Vercel's environment variable if available, otherwise use the production backend URL
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://military-management-system-backend.vercel.app"
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:1616"
 
 // Assets API
 export const assetsAPI = {
@@ -567,13 +566,10 @@ export const dataSummaryAPI = {
    */
   getMyStock: async (params = {}) => {
     const query = new URLSearchParams(params).toString();
-    const response = await fetch(`${API_BASE_URL}/api/summary/?${query}`, {
+    const response = await fetch(`${API_BASE_URL}/api/summary?${query}`, {
       credentials: "include",
     });
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-      throw new Error(error.message || "Failed to fetch dashboard");
-    }
+    if (!response.ok) throw new Error("Failed to fetch dashboard");
     return response.json();
   },
 };
