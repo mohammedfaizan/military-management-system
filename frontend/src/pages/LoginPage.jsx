@@ -25,7 +25,7 @@ import { FaPersonMilitaryRifle } from "react-icons/fa6"
 const demoCredentials = [
   {
     email: "admin@example.com",
-    password: "admin123",
+    password: "secure123",
     role: "admin",
     title: "System Administrator",
     description: "Full system access and management privileges",
@@ -43,7 +43,7 @@ const demoCredentials = [
   },
   {
     email: "logistics@example.com",
-    password: "secure456",
+    password: "secure123",
     role: "logistics_officer",
     title: "Logistics Officer",
     description: "Supply chain and inventory management",
