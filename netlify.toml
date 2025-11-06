@@ -13,7 +13,7 @@
 
 [dev]
   framework = "#custom"
-  command = "cd frontend && npm run dev"
+  command = "cd frontend && npm install --legacy-peer-deps && npm run build"
   targetPort = 5173
   port = 8888
   publish = "frontend/dist"
